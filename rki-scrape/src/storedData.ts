@@ -2,29 +2,33 @@ import fs from "fs";
 import path from "path";
 
 export interface DayData {
-  rs: string;
-  name: string;
   date: string;
   incidence: number;
   cases: number;
   casesDiff: number;
 }
 
+export interface Region {
+  rs: string;
+  name: string;
+  entries: DayData[]
+}
+
 function pathFor(filename: string): string {
   return path.join(__dirname, "..", "data", `${filename}.json`);
 }
 
-export async function load(rs: string): Promise<DayData[]> {
+export async function load(rs: string): Promise<Region | undefined> {
   const file = pathFor(rs);
   if (!fs.existsSync(file)) {
-    return [];
+    return undefined;
   }
   const readData = fs.readFileSync(file).toString("utf-8");
   return JSON.parse(readData);
 }
 
-export function save(rs: string, data: DayData[]) {
-  const file = pathFor(rs);
+export function save(data: Region) {
+  const file = pathFor(data.rs);
   const json = JSON.stringify(data);
   fs.writeFileSync(file, json);
 }
