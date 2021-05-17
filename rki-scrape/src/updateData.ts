@@ -24,9 +24,11 @@ async function updateLkData(data: RkiData) {
 
   const lastItem = baseData.entries[baseData.entries.length - 1];
   if (lastItem && lastItem.date === data.lastUpdate) {
+    console.log(`${data.name} - already up to date`)
     return;
   }
   const newData = newDataFrom(lastItem, data);
+  console.log(`${data.name} - incidence to ${data.incidence}`)
 
   const allNewData = [...baseData.entries, newData];
   save({ ...baseData, entries: allNewData });
