@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/covid-augsburg/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/covid-augsburg/static/js/main.8fa69643.chunk.js",
+    "main.js.map": "/covid-augsburg/static/js/main.8fa69643.chunk.js.map",
+    "runtime-main.js": "/covid-augsburg/static/js/runtime-main.994b1f74.js",
+    "runtime-main.js.map": "/covid-augsburg/static/js/runtime-main.994b1f74.js.map",
+    "static/css/2.adc6f56e.chunk.css": "/covid-augsburg/static/css/2.adc6f56e.chunk.css",
+    "static/js/2.036f4528.chunk.js": "/covid-augsburg/static/js/2.036f4528.chunk.js",
+    "static/js/2.036f4528.chunk.js.map": "/covid-augsburg/static/js/2.036f4528.chunk.js.map",
+    "static/js/3.eeb58b28.chunk.js": "/covid-augsburg/static/js/3.eeb58b28.chunk.js",
+    "static/js/3.eeb58b28.chunk.js.map": "/covid-augsburg/static/js/3.eeb58b28.chunk.js.map",
+    "index.html": "/covid-augsburg/index.html",
+    "service-worker.js": "/covid-augsburg/service-worker.js",
+    "service-worker.js.map": "/covid-augsburg/service-worker.js.map",
+    "static/css/2.adc6f56e.chunk.css.map": "/covid-augsburg/static/css/2.adc6f56e.chunk.css.map",
+    "static/css/main.6dea0f05.chunk.css.map": "/covid-augsburg/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.036f4528.chunk.js.LICENSE.txt": "/covid-augsburg/static/js/2.036f4528.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.994b1f74.js",
+    "static/css/2.adc6f56e.chunk.css",
+    "static/js/2.036f4528.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.8fa69643.chunk.js"
+  ]
+}
