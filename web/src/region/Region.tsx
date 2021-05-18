@@ -63,7 +63,7 @@ export const Region: FunctionComponent<Props> = ({ rs }) => {
   const graphData = entries
     .map(day => ({x: day.date, y: day.incidence, color: colorFor(day.incidence)}));
   const casesLabelsData = entries.map((day) => ({x: day.date as any, y: day.incidence + 15, label: formatDiff(day.casesDiff)}))
-  const incidenceLabelsData = entries.map((day) => ({x: day.date as any, y: 0, label: `${Math.ceil(day.incidence)}`}))
+  const incidenceLabelsData = entries.map((day) => ({x: day.date as any, y: 20, label: `${Math.ceil(day.incidence)}`}))
 
   return <div className={classes.body}>
     <h3>{ regionData.name }</h3>
