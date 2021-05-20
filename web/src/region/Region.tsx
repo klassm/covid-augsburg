@@ -58,7 +58,7 @@ export const Region: FunctionComponent<Props> = ({ rs }) => {
 
   const screenWidth = window.innerWidth - 20;
   const entries = regionData.entries
-    .slice(0, 10)
+    .slice(regionData.entries.length - 10, regionData.entries.length)
     .map(day => ({...day, date: day.date.split(".").slice(0, 2).join(".")}));
   const graphData = entries
     .map(day => ({x: day.date, y: day.incidence, color: colorFor(day.incidence)}));
