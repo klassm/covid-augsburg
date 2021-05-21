@@ -28,7 +28,7 @@ function formatDiff(diff: number | undefined): string {
   if (diff === undefined) {
     return "";
   }
-  return diff > 0 ? `+ ${diff}` : `- ${Math.abs(diff)}`;
+  return diff > 0 ? `+${diff}` : `-${Math.abs(diff)}`;
 }
 
 const colors = ["#fefac0", "#f6c97a", "#ec925b", "#dc543f", "#ac3135"]
