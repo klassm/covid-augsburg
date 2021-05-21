@@ -1,9 +1,8 @@
 import { fetchData, RkiData } from "./rkiFacade";
-import { DayData, load, Region, save, writeAllRsFile } from "./storedData";
+import { DayData, load, Region, save} from "./storedData";
 
 const stadtkreisAugsburg = "09761"
 const landkreisAugsburg = "09772"
-const allRs = [stadtkreisAugsburg, landkreisAugsburg];
 
 function newDataFrom(lastData: DayData | undefined, newData: RkiData): DayData {
   return {
@@ -35,10 +34,8 @@ async function updateLkData(data: RkiData) {
 }
 
 export async function updateData() {
-  const data = await fetchData(allRs);
+  const data = await fetchData();
   for (const item of data) {
     await updateLkData(item);
   }
-
-  writeAllRsFile(allRs);
 }
