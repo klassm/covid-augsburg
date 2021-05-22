@@ -36,6 +36,15 @@ export function useRemoveRegion(): UseMutationResult<void, unknown, { rs: string
   })
 }
 
+export function useSetRegions(): UseMutationResult<void, unknown, { newRegions: string[] }> {
+  const queryClient = useQueryClient()
+  return useMutation<void, unknown, { newRegions: string[] }>(async ({ newRegions }) => {
+    saveRegions(newRegions);
+  }, {
+    onSettled: () => queryClient.invalidateQueries(userRegionsQueryKey)
+  })
+}
+
 function getUserRegions(): string[] {
   const cookieValue = cookies.get(cookieKey);
   if (!cookieValue) {

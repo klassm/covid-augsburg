@@ -1,19 +1,24 @@
 import {
   AppBar,
-  Dialog, IconButton, LinearProgress,
+  Dialog,
+  IconButton,
+  LinearProgress,
   List,
-  ListItem, ListItemSecondaryAction,
+  ListItem,
+  ListItemSecondaryAction,
   ListItemText,
   makeStyles,
   Toolbar,
   Typography
 } from "@material-ui/core";
-import { FunctionComponent } from "react";
+import RootRef from "@material-ui/core/RootRef";
 import CloseIcon from '@material-ui/icons/Close';
-import { useAvailableRegions } from "../facade/fetchData";
-import { useRemoveRegion, useUserRegions } from "../facade/RegionStorage";
-import { keyBy } from "lodash";
 import DeleteIcon from '@material-ui/icons/Delete';
+import { keyBy } from "lodash";
+import { FunctionComponent, useState } from "react";
+import { DragDropContext, Draggable, Droppable, DropResult } from "react-beautiful-dnd";
+import { useAvailableRegions } from "../facade/fetchData";
+import { useRemoveRegion, useSetRegions, useUserRegions } from "../facade/RegionStorage";
 
 interface Props {
   onClose: () => void
@@ -34,6 +39,29 @@ export const AdministerRegionsDialog: FunctionComponent<Props> = ({ onClose }) =
   const { data: regions } = useAvailableRegions()
   const { data: userRegions } = useUserRegions();
   const { mutateAsync: removeRegion } = useRemoveRegion();
+  const { mutateAsync: setRegions } = useSetRegions();
+  const [toShow, setToShow] = useState(userRegions ?? []);
+
+  function reorder<T>(list: T[], startIndex: number, endIndex: number): T[] {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
+  }
+
+  async function onDragEnd({ source, destination }: DropResult) {
+    if (!destination) {
+      return;
+    }
+
+    const newRegions = reorder(
+      toShow,
+      source.index,
+      destination.index
+    );
+    await setRegions({ newRegions });
+  }
 
   function renderList() {
     if (!regions || !userRegions) {
@@ -42,22 +70,41 @@ export const AdministerRegionsDialog: FunctionComponent<Props> = ({ onClose }) =
 
     const indexedRegions = keyBy(regions, region => region.rs);
     const toRender = userRegions.map(rs => indexedRegions[rs]);
-    const listItems = toRender.map(item => (
-      <ListItem>
-        <ListItemText
-          primary={item.name}
-        />
-        <ListItemSecondaryAction>
-          <IconButton edge="end" aria-label="delete" onClick={async () => removeRegion({ rs: item.rs })}>
-            <DeleteIcon />
-          </IconButton>
-        </ListItemSecondaryAction>
-      </ListItem>
+    const ListItemAny = ListItem as any;
+    const listItems = toRender.map((item, index) => (
+      <Draggable draggableId={ item.rs } key={ item.rs } index={ index }>
+        { (provided) => (
+          <ListItemAny
+            ContainerComponent="li"
+            ContainerProps={ { ref: provided.innerRef } }
+            { ...provided.draggableProps }
+            { ...provided.dragHandleProps }
+          >
+            <ListItemText
+              primary={ item.name }
+            />
+            <ListItemSecondaryAction>
+              <IconButton edge="end" aria-label="delete" onClick={ async () => removeRegion({ rs: item.rs }) }>
+                <DeleteIcon/>
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItemAny>
+        ) }
+      </Draggable>
     ));
 
-    return <List dense={true}>
-      {listItems}
-    </List>
+    return <DragDropContext onDragEnd={ onDragEnd }>
+      <Droppable droppableId="rs_droppable">
+        { (provided) => (
+          <RootRef rootRef={ provided.innerRef }>
+            <List dense={ true }>
+              { listItems }
+              { provided.placeholder }
+            </List>
+          </RootRef>
+        ) }
+      </Droppable>
+    </DragDropContext>
   }
 
   return <Dialog fullScreen open={ true } onClose={ onClose }>
@@ -71,6 +118,6 @@ export const AdministerRegionsDialog: FunctionComponent<Props> = ({ onClose }) =
         </Typography>
       </Toolbar>
     </AppBar>
-    {renderList()}
+    { renderList() }
   </Dialog>
 }
