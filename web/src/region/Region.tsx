@@ -68,7 +68,7 @@ export const Region: FunctionComponent<Props> = ({ rs }) => {
   return <div className={classes.body}>
     <h3>{ regionData.name }</h3>
 
-    <XYPlot height={ 300 } width={ screenWidth } xType="ordinal">
+    <XYPlot height={ 250 } width={ screenWidth } xType="ordinal">
       <VerticalGridLines />
       <HorizontalGridLines />
       <XAxis />
