@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 
-const baseUrl = "https://raw.githubusercontent.com/klassm/covid-augsburg/master/rki-scrape/data"
+const baseUrl = "https://raw.githubusercontent.com/klassm/covid-historie/master/rki-scrape/data"
 
 export interface DayData {
   date: string;
