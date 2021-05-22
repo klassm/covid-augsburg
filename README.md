@@ -1,4 +1,4 @@
-COVID Data for Augsburg
+COVID Data with history
 =======================
 
-See https://klassm.github.io/covid-augsburg/
+See https://klassm.github.io/covid-historie/

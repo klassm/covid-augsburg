@@ -13,15 +13,19 @@ export interface DayData {
 export interface Region {
   rs: string;
   name: string;
+}
+
+export interface RegionWithData extends Region {
   entries: DayData[]
 }
+
 
 export function useAvailableRegions() {
   return useQuery("available-regions", fetchAvailableRegions)
 }
 
-export async function fetchAvailableRegions(): Promise<string[]> {
-  const response = await axios.get(`${baseUrl}/all.json`)
+export async function fetchAvailableRegions(): Promise<Region[]> {
+  const response = await axios.get(`${baseUrl}/regions.json`)
   return response.data;
 }
 
@@ -29,7 +33,7 @@ export function useRegion(rs: string) {
   return useQuery([rs, "region"], async () => fetchRegion(rs))
 }
 
-export async function fetchRegion(rs: string): Promise<Region> {
+export async function fetchRegion(rs: string): Promise<RegionWithData> {
   const response = await axios.get(`${baseUrl}/${rs}.json`)
   return response.data;
 }

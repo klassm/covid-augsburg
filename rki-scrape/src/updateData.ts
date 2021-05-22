@@ -1,5 +1,5 @@
 import { fetchData, RkiData } from "./rkiFacade";
-import { DayData, load, Region, save} from "./storedData";
+import { DayData, load, Region, save, writeRegionsFile } from "./storedData";
 
 const stadtkreisAugsburg = "09761"
 const landkreisAugsburg = "09772"
@@ -38,4 +38,7 @@ export async function updateData() {
   for (const item of data) {
     await updateLkData(item);
   }
+
+  const regions = data.map(({ name, rs}) => ({ name, rs }));
+  writeRegionsFile(regions);
 }

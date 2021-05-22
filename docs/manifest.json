@@ -1,6 +1,6 @@
 {
-  "short_name": "COVID Augsburg",
-  "name": "COVID Graph Augsburg",
+  "short_name": "COVID Historie",
+  "name": "COVID Historie",
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,7 +21,7 @@
       "purpose": "maskable"
     }
   ],
-  "start_url": "https://klassm.github.io/covid-augsburg/",
+  "start_url": "https://klassm.github.io/covid-historie/",
   "display": "standalone",
   "theme_color": "#ffffff",
   "background_color": "#ffffff"

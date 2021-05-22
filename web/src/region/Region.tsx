@@ -25,28 +25,28 @@ const useStyles = makeStyles(() =>
 );
 
 function formatDiff(diff: number | undefined): string {
-  if (diff === undefined) {
+  if (diff === undefined || diff === 0) {
     return "";
   }
   return diff > 0 ? `+${diff}` : `-${Math.abs(diff)}`;
 }
 
-const colors = ["#fefac0", "#f6c97a", "#ec925b", "#dc543f", "#ac3135"]
+const colors = ["", "#fefac0", "#f6c97a", "#ec925b", "#dc543f", "#ac3135"]
 function colorFor(incidence: number): number {
 
   if (incidence > 200) {
-    return 4;
+    return 5;
   }
   if (incidence > 100) {
-    return 3;
+    return 4;
   }
   if (incidence > 50) {
-    return 2;
+    return 3;
   }
   if (incidence > 35) {
-    return 1;
+    return 2;
   }
-  return 0;
+  return 1;
 }
 
 export const Region: FunctionComponent<Props> = ({ rs }) => {
@@ -63,7 +63,7 @@ export const Region: FunctionComponent<Props> = ({ rs }) => {
   const graphData = entries
     .map(day => ({x: day.date, y: day.incidence, color: colorFor(day.incidence)}));
   const casesLabelsData = entries.map((day) => ({x: day.date as any, y: day.incidence + 15, label: formatDiff(day.casesDiff)}))
-  const incidenceLabelsData = entries.map((day) => ({x: day.date as any, y: 10, label: `${Math.ceil(day.incidence)}`}))
+  const incidenceLabelsData = entries.map((day) => ({x: day.date as any, y: 0, label: `${Math.ceil(day.incidence)}`}))
 
   return <div className={classes.body}>
     <h3>{ regionData.name }</h3>

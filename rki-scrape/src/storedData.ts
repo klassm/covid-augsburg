@@ -33,7 +33,7 @@ export function save(data: Region) {
   fs.writeFileSync(file, json);
 }
 
-export function writeAllRsFile(rs: string[]) {
-  const path = pathFor("all");
-  fs.writeFileSync(path, JSON.stringify(rs));
+export function writeRegionsFile(regions: {rs: string, name: string}[]) {
+  const path = pathFor("regions");
+  fs.writeFileSync(path, JSON.stringify(regions));
 }
