@@ -62,8 +62,8 @@ export const Region: FunctionComponent<Props> = ({ rs }) => {
     .map(day => ({...day, date: day.date.split(".").slice(0, 2).join(".")}));
   const graphData = entries
     .map(day => ({x: day.date, y: day.incidence, color: colorFor(day.incidence)}));
-  const casesLabelsData = entries.map((day) => ({x: day.date as any, y: day.incidence + 15, label: formatDiff(day.casesDiff)}))
-  const incidenceLabelsData = entries.map((day) => ({x: day.date as any, y: 0, label: `${Math.ceil(day.incidence)}`}))
+  const casesLabelsData = entries.map((day) => ({x: day.date as any, y: day.incidence, yOffset: -20, label: day.incidence < 10 ? "" : formatDiff(day.casesDiff)}))
+  const incidenceLabelsData = entries.map((day) => ({x: day.date as any, y: 0, yOffset: -10, label: `${Math.ceil(day.incidence)}`}))
 
   return <div className={classes.body}>
     <h3>{ regionData.name }</h3>
@@ -73,8 +73,8 @@ export const Region: FunctionComponent<Props> = ({ rs }) => {
       <HorizontalGridLines />
       <XAxis />
       <YAxis />
-      <VerticalBarSeries colorType="log" data={graphData}  barWidth={0.8} colorRange={colors} colorDomain={[0, 1, 2, 3, 4]}/>
-      <LabelSeries data={casesLabelsData} xType="ordinal" labelAnchorX="middle"/>
+      <VerticalBarSeries colorType="log" data={graphData} barWidth={0.8} colorRange={colors} colorDomain={[0, 1, 2, 3, 4]}/>
+      <LabelSeries data={casesLabelsData} xType="ordinal" labelAnchorX="middle" labelAnchorY="text-after-edge" allowOffsetToBeReversed={true}/>
       <LabelSeries data={incidenceLabelsData} xType="ordinal" labelAnchorX="middle"/>
     </XYPlot>
   </div>

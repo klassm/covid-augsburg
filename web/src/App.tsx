@@ -37,7 +37,8 @@ export const App: FunctionComponent = () => {
         <p className={classes.footer}>
           Die auf dieser Seite angezeigten Daten stammen vom <a
           href="https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/917fc37a709542548cc3be077a786c17_0/geoservice?geometry=-30.849%2C46.211%2C52.867%2C55.839"
-          target="_blank">RKI</a>.
+          target="_blank"
+          rel="noreferrer" >RKI</a>.
         </p>
       </div>
     </QueryClientProvider>

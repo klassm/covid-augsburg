@@ -1,4 +1,4 @@
-import { AppBar, fade, IconButton, InputBase, makeStyles, TextField, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, fade, IconButton, InputBase, makeStyles, Toolbar, Typography } from "@material-ui/core";
 import { FunctionComponent, useState } from "react";
 import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
