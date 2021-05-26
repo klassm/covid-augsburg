@@ -40,7 +40,6 @@ export const AdministerRegionsDialog: FunctionComponent<Props> = ({ onClose }) =
   const { data: userRegions } = useUserRegions();
   const { mutateAsync: removeRegion } = useRemoveRegion();
   const { mutateAsync: setRegions } = useSetRegions();
-  const [toShow, setToShow] = useState(userRegions ?? []);
 
   function reorder<T>(list: T[], startIndex: number, endIndex: number): T[] {
     const result = Array.from(list);
@@ -56,7 +55,7 @@ export const AdministerRegionsDialog: FunctionComponent<Props> = ({ onClose }) =
     }
 
     const newRegions = reorder(
-      toShow,
+      userRegions ?? [],
       source.index,
       destination.index
     );

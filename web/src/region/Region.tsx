@@ -1,5 +1,6 @@
 import { createStyles, makeStyles } from "@material-ui/core";
 import React, { FunctionComponent } from "react";
+import { takeRight } from "lodash";
 import {
   HorizontalGridLines, LabelSeries,
   VerticalBarSeries,
@@ -57,8 +58,7 @@ export const Region: FunctionComponent<Props> = ({ rs }) => {
   }
 
   const screenWidth = window.innerWidth - 20;
-  const entries = regionData.entries
-    .slice(regionData.entries.length - 10, regionData.entries.length)
+  const entries = takeRight(regionData.entries, 10)
     .map(day => ({...day, date: day.date.split(".").slice(0, 2).join(".")}));
   const graphData = entries
     .map(day => ({x: day.date, y: day.incidence, color: colorFor(day.incidence)}));
