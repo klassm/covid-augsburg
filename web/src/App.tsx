@@ -10,10 +10,11 @@ const queryClient = new QueryClient()
 const useStyles = makeStyles(() => ( {
     body: {
       margin: 10,
-      marginTop: 50
+      marginTop: 80
     },
     footer: {
-      fontSize: '0.5m'
+      fontSize: '0.5m',
+      textAlign: 'center'
     }
   }
 ))

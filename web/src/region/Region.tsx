@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from "@material-ui/core";
 import React, { FunctionComponent } from "react";
-import { takeRight } from "lodash";
+import { takeRight, maxBy } from "lodash";
 import {
   HorizontalGridLines, LabelSeries,
   VerticalBarSeries,
@@ -50,6 +50,14 @@ function colorFor(incidence: number): number {
   return 1;
 }
 
+function formatIncidence(incidence: number): number {
+  if (incidence > 100) {
+    return Math.ceil(incidence);
+  }
+
+  return Math.ceil(incidence * 10) / 10;
+}
+
 export const Region: FunctionComponent<Props> = ({ rs }) => {
   const classes = useStyles();
   const { data: regionData } = useRegion(rs)
@@ -62,8 +70,9 @@ export const Region: FunctionComponent<Props> = ({ rs }) => {
     .map(day => ({...day, date: day.date.split(".").slice(0, 2).join(".")}));
   const graphData = entries
     .map(day => ({x: day.date, y: day.incidence, color: colorFor(day.incidence)}));
-  const casesLabelsData = entries.map((day) => ({x: day.date as any, y: day.incidence, yOffset: -20, label: day.incidence < 10 ? "" : formatDiff(day.casesDiff)}))
-  const incidenceLabelsData = entries.map((day) => ({x: day.date as any, y: 0, yOffset: -10, label: `${Math.ceil(day.incidence)}`}))
+  const maxDate = maxBy(entries, entry => entry.incidence)?.date;
+  const casesLabelsData = entries.map((day) => ({x: day.date as any, y: day.incidence, yOffset: day.date === maxDate ? -20 : 0, label: day.incidence < 10 ? "" : formatDiff(day.casesDiff)}))
+  const incidenceLabelsData = entries.map((day) => ({x: day.date as any, y: 0, yOffset: -10, label: `${formatIncidence(day.incidence)}`}))
 
   return <div className={classes.body}>
     <h3>{ regionData.name }</h3>
