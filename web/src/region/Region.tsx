@@ -71,8 +71,8 @@ export const Region: FunctionComponent<Props> = ({ rs }) => {
   const graphData = entries
     .map(day => ({x: day.date, y: day.incidence, color: colorFor(day.incidence)}));
   const maxDate = maxBy(entries, entry => entry.incidence)?.date;
-  const casesLabelsData = entries.map((day) => ({x: day.date as any, y: day.incidence, yOffset: day.date === maxDate ? -20 : 0, label: day.incidence < 10 ? "" : formatDiff(day.casesDiff)}))
-  const incidenceLabelsData = entries.map((day) => ({x: day.date as any, y: 0, yOffset: -10, label: `${formatIncidence(day.incidence)}`}))
+  const casesLabelsData = entries.map((day) => ({x: day.date as any, y: day.incidence, yOffset: day.date === maxDate ? -20 : 0, label: day.incidence < 10 ? "" : formatDiff(day.casesDiff), style: {fontSize: 12}}))
+  const incidenceLabelsData = entries.map((day) => ({x: day.date as any, y: 0, yOffset: -10, style: {fontSize: 12}, label: `${formatIncidence(day.incidence)}`}))
 
   return <div className={classes.body}>
     <h3>{ regionData.name }</h3>
