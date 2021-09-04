@@ -1,9 +1,6 @@
 import { fetchData, RkiData } from "./rkiFacade";
 import { DayData, load, Region, save, writeRegionsFile } from "./storedData";
 
-const stadtkreisAugsburg = "09761"
-const landkreisAugsburg = "09772"
-
 function newDataFrom(lastData: DayData | undefined, newData: RkiData): DayData {
   return {
     date: newData.lastUpdate,

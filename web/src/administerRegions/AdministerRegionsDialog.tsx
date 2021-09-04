@@ -15,7 +15,7 @@ import RootRef from "@material-ui/core/RootRef";
 import CloseIcon from '@material-ui/icons/Close';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { keyBy } from "lodash";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent} from "react";
 import { DragDropContext, Draggable, Droppable, DropResult } from "react-beautiful-dnd";
 import { useAvailableRegions } from "../facade/fetchData";
 import { useRemoveRegion, useSetRegions, useUserRegions } from "../facade/RegionStorage";
