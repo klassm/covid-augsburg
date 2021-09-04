@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from "@material-ui/core";
 import { takeRight } from "lodash";
 import React, { FunctionComponent } from "react";
-import { Bar, BarChart, CartesianGrid, Cell, LabelList, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, Cell, LabelList, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 import { useRegion } from "../facade/fetchData";
 
@@ -67,7 +67,6 @@ export const Region: FunctionComponent<Props> = ({ rs }) => {
     return null;
   }
 
-  const screenWidth = window.innerWidth - 20;
   const graphData: Entry[] = takeRight(regionData.entries, 10)
     .map(day => ( { ...day, date: day.date.split(".").slice(0, 2).join(".") } ))
     .map(day => ( {
@@ -81,31 +80,31 @@ export const Region: FunctionComponent<Props> = ({ rs }) => {
   return <div className={ classes.body }>
     <h3>{ regionData.name }</h3>
 
+    <ResponsiveContainer height={300}>
     <BarChart
-      width={ screenWidth }
-      height={ 300 }
       data={ graphData }
       margin={ {
-        top: 20,
-        right: 30,
-        left: 20,
+        top: 5,
+        right: 5,
+        left: 5,
         bottom: 5,
       } }
     >
       <CartesianGrid strokeDasharray="3 3"/>
-      <XAxis dataKey="date"/>
-      <YAxis/>
+      <XAxis tick={{fontSize: 12}} dataKey="date"/>
+      <YAxis tick={{fontSize: 10}} width={18}/>
       <Bar dataKey="incidence">
         {
           graphData.map((entry, index) => (
             <>
               <Cell key={ `cell-${ index }` } fill={ entry.color }/>
-              <LabelList dataKey="casesDiff" position="top" fill="#000000" fontSize={15}/>
-              <LabelList dataKey="formattedIncidence" position="insideBottom" fill="#000000" fontSize={15}/>
+              <LabelList dataKey="casesDiff" position="top" fill="#000000" fontSize={12}/>
+              <LabelList dataKey="formattedIncidence" position="insideBottom" fill="#000000" fontSize={12}/>
             </>
           ))
         }
       </Bar>
     </BarChart>
+    </ResponsiveContainer>
   </div>
 }
