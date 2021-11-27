@@ -1,12 +1,13 @@
 import { createStyles, makeStyles } from "@material-ui/core";
 import { takeRight } from "lodash";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Cell, LabelList, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 import { useRegion } from "../facade/fetchData";
 
 interface Props {
   rs: string;
+  entriesToShow: number;
 }
 
 const useStyles = makeStyles(() =>
@@ -60,14 +61,16 @@ interface Entry {
   color: string | undefined;
 }
 
-export const Region: FunctionComponent<Props> = ({ rs }) => {
+export const Region: FunctionComponent<Props> = ({ rs, entriesToShow }) => {
   const classes = useStyles();
   const { data: regionData } = useRegion(rs)
+
   if (!regionData) {
     return null;
   }
 
-  const graphData: Entry[] = takeRight(regionData.entries, 10)
+
+  const graphData: Entry[] = takeRight(regionData.entries, entriesToShow)
     .map(day => ( { ...day, date: day.date.split(".").slice(0, 2).join(".") } ))
     .map(day => ( {
       date: day.date,
@@ -86,7 +89,7 @@ export const Region: FunctionComponent<Props> = ({ rs }) => {
       margin={ {
         top: 5,
         right: 5,
-        left: 5,
+        left: 10,
         bottom: 5,
       } }
     >
