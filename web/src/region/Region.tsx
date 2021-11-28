@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from "@material-ui/core";
 import { takeRight } from "lodash";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent} from "react";
 import { Bar, BarChart, CartesianGrid, Cell, LabelList, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 import { useRegion } from "../facade/fetchData";

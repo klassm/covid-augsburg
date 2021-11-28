@@ -34,6 +34,6 @@ export function useRegion(rs: string) {
 }
 
 export async function fetchRegion(rs: string): Promise<RegionWithData> {
-  const response = await axios.get(`${baseUrl}/${rs}.json`)
+  const response = await axios.get(`${baseUrl}/${rs}_partial.json`)
   return response.data;
 }

@@ -34,7 +34,7 @@ export function save(data: Region) {
   fs.writeFileSync(file, json);
 
   const partialFile = pathFor(data.rs + "_partial");
-  const partialJson = JSON.stringify({ ...data, entries: takeRight(data.entries, 100) });
+  const partialJson = JSON.stringify({ ...data, entries: takeRight(data.entries, 50) });
   fs.writeFileSync(partialFile, partialJson);
 }
 
