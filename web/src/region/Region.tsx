@@ -87,7 +87,7 @@ export const Region: FunctionComponent<Props> = ({ rs, entriesToShow }) => {
     <BarChart
       data={ graphData }
       margin={ {
-        top: 5,
+        top: 15,
         right: 5,
         left: 10,
         bottom: 5,
