@@ -1,18 +1,17 @@
-import cookies from 'js-cookie';
 import { uniq } from 'lodash';
 import { useMutation, useQuery, UseMutationResult } from "react-query";
 import { useQueryClient } from 'react-query';
 
-const cookieKey = 'regions';
 const defaultRegions = ['09761', '09772'];
 const userRegionsQueryKey = "user-regions";
+const localStorageKey = "covid-history-rs";
 
 export function useUserRegions() {
   return useQuery(userRegionsQueryKey, getUserRegions)
 }
 
 function saveRegions(rs: string[]) {
-  cookies.set(cookieKey, JSON.stringify(rs), { sameSite: 'lax', expires: 3650 });
+  window.localStorage.setItem(localStorageKey, JSON.stringify(rs));
 }
 
 export function useAddRegion(): UseMutationResult<void, unknown, { rs: string }> {
@@ -46,9 +45,9 @@ export function useSetRegions(): UseMutationResult<void, unknown, { newRegions: 
 }
 
 function getUserRegions(): string[] {
-  const cookieValue = cookies.get(cookieKey);
-  if (!cookieValue) {
+  const value = window.localStorage.getItem(localStorageKey);
+  if (!value) {
     return defaultRegions;
   }
-  return JSON.parse(cookieValue) as string[];
+  return JSON.parse(value) as string[];
 }
