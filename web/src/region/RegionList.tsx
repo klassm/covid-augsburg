@@ -1,22 +1,19 @@
-import { makeStyles } from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import styled from "@emotion/styled";
+import CircularProgress from "@mui/material/CircularProgress";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useAvailableRegions } from "../facade/fetchData";
 import { useUserRegions } from "../facade/RegionStorage";
 import { Region } from "./Region";
 
-const useStyles = makeStyles(() => ( {
-    loadingIndicator: {
-      display: 'flex',
-      justifyContent: 'center',
-      marginTop: 30
-    },
+const LoadingIndicator = styled.div `
+  &.loadingIndicator {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
   }
-))
+`;
 
 export const RegionList: FunctionComponent = () => {
-  const classes = useStyles();
-
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -36,7 +33,7 @@ export const RegionList: FunctionComponent = () => {
 
   const entriesToShow = Math.max(width / 40, 7);
   if (!availableRegions || !savedRegions) {
-    return <div className={classes.loadingIndicator}><CircularProgress size={80}/></div>
+    return <LoadingIndicator><CircularProgress size={80}/></LoadingIndicator>;
   }
 
   const regionsToDisplay = savedRegions.filter(rs => availableRegions.some(region => region.rs === rs));

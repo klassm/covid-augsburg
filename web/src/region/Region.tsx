@@ -1,6 +1,6 @@
-import { createStyles, makeStyles } from "@material-ui/core";
+import styled from '@emotion/styled';
 import { takeRight } from "lodash";
-import React, { FunctionComponent} from "react";
+import React, { FunctionComponent } from "react";
 import { Bar, BarChart, CartesianGrid, Cell, LabelList, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 import { useRegion } from "../facade/fetchData";
@@ -10,13 +10,10 @@ interface Props {
   entriesToShow: number;
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    body: {
-      padding: 5
-    }
-  })
-);
+const Body = styled.div`
+  padding: 8px;
+  `
+
 
 function formatDiff(diff: number | undefined): string {
   if (diff === undefined || diff === 0) {
@@ -62,7 +59,6 @@ interface Entry {
 }
 
 export const Region: FunctionComponent<Props> = ({ rs, entriesToShow }) => {
-  const classes = useStyles();
   const { data: regionData } = useRegion(rs)
 
   if (!regionData) {
@@ -80,7 +76,7 @@ export const Region: FunctionComponent<Props> = ({ rs, entriesToShow }) => {
       formattedIncidence: formatIncidence(day.incidence)
     } ));
 
-  return <div className={ classes.body }>
+  return <Body>
     <h3>{ regionData.name }</h3>
 
     <ResponsiveContainer height={300}>
@@ -99,15 +95,15 @@ export const Region: FunctionComponent<Props> = ({ rs, entriesToShow }) => {
       <Bar dataKey="incidence">
         {
           graphData.map((entry, index) => (
-            <>
+            <React.Fragment key={ `graph_${index}` }>
               <Cell key={ `cell-${ index }` } fill={ entry.color }/>
               <LabelList dataKey="casesDiff" position="top" fill="#000000" fontSize={12}/>
               <LabelList dataKey="formattedIncidence" position="insideBottom" fill="#000000" fontSize={12}/>
-            </>
+            </React.Fragment>
           ))
         }
       </Bar>
     </BarChart>
     </ResponsiveContainer>
-  </div>
+  </Body>
 }
