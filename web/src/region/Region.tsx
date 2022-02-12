@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { takeRight } from "lodash";
 import React, { FunctionComponent } from "react";
 import { Bar, BarChart, CartesianGrid, Cell, LabelList, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { contrastColor } from 'contrast-color';
 
 import { useRegion } from "../facade/fetchData";
 
@@ -61,6 +62,7 @@ interface Entry {
 export const Region: FunctionComponent<Props> = ({ rs, entriesToShow }) => {
   const { data: regionData } = useRegion(rs)
 
+  console.log(contrastColor({bgColor: '#ac3135'}))
   if (!regionData) {
     return null;
   }
@@ -97,8 +99,8 @@ export const Region: FunctionComponent<Props> = ({ rs, entriesToShow }) => {
           graphData.map((entry, index) => (
             <React.Fragment key={ `graph_${index}` }>
               <Cell key={ `cell-${ index }` } fill={ entry.color }/>
-              <LabelList dataKey="casesDiff" position="top" fill="#000000" fontSize={12}/>
-              <LabelList dataKey="formattedIncidence" position="insideBottom" fill="#000000" fontSize={12}/>
+              <LabelList dataKey="casesDiff" position="top" fill="#000000" fontSize={12} fontWeight={100}/>
+              <LabelList dataKey="formattedIncidence" position="insideBottom" fill={contrastColor({bgColor: entry.color})} fontSize={12}  fontWeight={400}/>
             </React.Fragment>
           ))
         }

@@ -10,7 +10,7 @@ const StyledBody = styled.div `
 `;
 
 const StyledFooter = styled.p`
-  font-size: 0.5em;
+  font-size: 0.9em;
   text-align: center;
 `
 
