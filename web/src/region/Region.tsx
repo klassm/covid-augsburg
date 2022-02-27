@@ -87,7 +87,7 @@ export const Region: FunctionComponent<Props> = ({ rs, entriesToShow }) => {
       margin={ {
         top: 15,
         right: 5,
-        left: 10,
+        left: 15,
         bottom: 5,
       } }
     >
